@@ -21,4 +21,8 @@ int main(void) {
 
     sum = a + b; // Calculate sum
     printf("Sum of first and second number: %d\n", sum);
+
+    if (sum > b) {
+        a = sum-b;
+    }
 }
