@@ -1,5 +1,5 @@
 // Course: Hardware-oriented programming
-// Exercies: 1c
+// Assignment: 1c
 // Student name: Mads Richardt
 // Date: 26.08.2022
 // Description: Prompt the user for a number. Check if the number is devisible by 5.

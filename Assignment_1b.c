@@ -1,5 +1,5 @@
 // Course: Hardware-oriented programming
-// Exercies: 1b
+// Assignment: 1b
 // Student name: Mads Richardt
 // Date: 26.08.2022
 // Description: Prompt user for to numbers and store them in variables a and b. 

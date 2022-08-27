@@ -1,5 +1,5 @@
 // Course: Hardware-oriented programming
-// Exercies: 1a
+// Assignment: 1a
 // Student name: Mads Richardt
 // Date: 26.08.2022
 // Description: A program that prints the string "Programering er en kontaktsport."
