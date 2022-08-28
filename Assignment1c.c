@@ -14,11 +14,11 @@ int main(void) {
     printf("Enter number: ");
     scanf("%d", &number);
 
-    // Check if number is devisible by 5.
+    // Check if number is divisible by 5.
     if (number%5 == 0) {
-        printf("%d is devisible by 5\n", number); 
+        printf("%d is divisible by 5\n", number); 
     }   
     else {
-        printf("%d is not devisible by 5\n", number);
+        printf("%d is not divisible by 5\n", number);
     }
 }
