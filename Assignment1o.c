@@ -87,7 +87,7 @@ int main(void) {
     }
 
     // Print result of calculation.
-    printf("Result: %f\n", simple_calculator((int) num1, (int) num2,opp));
+    printf("Result: %f\n\n", simple_calculator((int) num1, (int) num2,opp));
     goto label2;
 
 }
