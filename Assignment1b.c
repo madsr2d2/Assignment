@@ -11,11 +11,11 @@
 int main(void) {
     long int a, b, sum; // Declare variables.
     
-    // Promt for first number and store in variable a.
+    // Prompt for first number and store in variable a.
     printf("Enter first number: "); 
     scanf("%d", &a);
 
-    // Promt for second number and store in variable b.
+    // Prompt for second number and store in variable b.
     printf("Enter second number: "); 
     scanf("%d", &b); 
 
