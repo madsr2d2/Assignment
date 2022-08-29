@@ -12,13 +12,13 @@ double simple_calculator(int x1, int x2, int n);
 int main(void) {
 
     // Declare and initialize variables.
-    int n1;
-    int n2;
+    int n1 = 0;
+    int n2 = 0;
     char dummy[100];
-    int num1;
-    int num2;
-    int opp;
-    double res;
+    int num1 = 0;
+    int num2 = 0;
+    int opp = 0;
+    double res = 0;
     char welcome_str[] = "This is a simple calculator.\n\n";
     char closing_str[] = "Program closed\n.";
     char str1[] = "Enter first number: ";
