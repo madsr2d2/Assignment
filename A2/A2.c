@@ -5,40 +5,60 @@
 // Description: .....
 
 #include <stdio.h>
+#include <stdlib.h>
+
 int main(void) {
     // Initialize vars.
     int assignment_count = 1, grade = 0, score_sum = 0, score = 0, control_var;
     float average = 0;
+    char dummy[1000];
     char name[1000];
-    char surname[1000]; 
-    char s1[] = "Welcome to GradeCalc!\n\n"; 
-    char s2[] = "Enter student name (Format: Name Surname): ";
-    char s3[] = "Enter score %d: ";
+    // Print welcome text.
+    printf("Welcome to GradeCalc!\n\n");
+
+    new_student:
+    // Prompt for student name.
+    printf("Enter student name (Format: Name Surname, -2 to quit): ");
+    scanf("%s",&name);
     
-    char err1[] = "Error! Grade should be from 0 to 100";
-    
-    printf("%s", s1);
-    
-    point2:
-    printf("Enter student name (Format: Name Surname): ");
-    control_var = scanf("%s %s",&name, &surname);
+    // Jump to termination point if name or surname is -2.
+    if (atoi(name) == -2){
+        goto quit_program;
+    }
 
     while (1) {
+        // Prompt for student score.
         printf("Enter score %d for %s (-1 to go to next student, -2 to quit): ", assignment_count, name);
-        scanf("%d", &score);
+        control_var = scanf("%d", &score);
+
+        // Catch score format error.
+        if (control_var == 0) {
+            scanf("%s",&dummy);
+            goto format_error;
+        }
         
+        // Exit while loop and go to print_results if score is -1.
         if (score == -1){
-        goto point1;
+            goto print_results;
         }
-        if (score == -2) {
-            goto point3;
-
-        }
-
-        assignment_count++;
-        score_sum += score;
-        average = ( (float) score_sum )/(assignment_count - 1);
         
+        // Exit while loop and go to quit_program if score is -2.
+        if (score == -2) {
+            goto quit_program;
+        }
+
+        // Catch score range error.
+        if (score < 0 || score >100)  {
+            format_error:
+            printf("\nFORMAT ERROR!!! Score should be number between 0 and 100.\n\n");
+            continue;
+        }
+
+        assignment_count++; // Increment assignment counter.
+        score_sum += score; // Calculate the score sum.
+        average = ( (float) score_sum )/(assignment_count - 1); // Calculate the average score.
+        
+        // Determine grade.
         if (average >= 90) {
             grade = 12;
         }
@@ -57,21 +77,21 @@ int main(void) {
         if (average <= 39) {
             grade = 0;
         }
-
-        //printf("Sum: %d, average: %.1f, count: %d",grade_sum,average,assignment_count);
-        
-
-
     }
 
-    point1:
-    printf("Student: %s %s, Student Average: %.1f, Student Grade: %d\n\n",name,surname,average,grade);
+    // Print results for current student.
+    print_results:
+    printf("\nAverage score for %s: %.1f\n",name,average);
+    printf("Grade for %s: %d\n\n", name, grade);
     assignment_count = 1;
     score_sum = score = 0;
-    goto point2;
 
-    point3:
-    printf("%s", "\n\nProgram closed\n");
+    // Go to new student.
+    goto new_student;
+
+    // Quit program and print closing message.
+    quit_program:
+    printf("\n\nProgram closed\n");
 
 
 
