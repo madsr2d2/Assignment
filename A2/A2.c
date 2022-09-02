@@ -7,11 +7,12 @@
 #include <stdio.h>
 int main(void) {
     // Initialize vars.
-    int assignment_count = 1, grade = 0, score_sum = 0, score = 0;
+    int assignment_count = 1, grade = 0, score_sum = 0, score = 0, control_var;
     float average = 0;
     char name[1000];
+    char surname[1000]; 
     char s1[] = "Welcome to GradeCalc!\n\n"; 
-    char s2[] = "Enter student name (Format: Name_Surname): ";
+    char s2[] = "Enter student name (Format: Name Surname): ";
     char s3[] = "Enter score %d: ";
     
     char err1[] = "Error! Grade should be from 0 to 100";
@@ -19,8 +20,8 @@ int main(void) {
     printf("%s", s1);
     
     point2:
-    printf("%s", s2);
-    scanf("%s",&name);
+    printf("Enter student name (Format: Name Surname): ");
+    control_var = scanf("%s %s",&name, &surname);
 
     while (1) {
         printf("Enter score %d for %s (-1 to go to next student, -2 to quit): ", assignment_count, name);
@@ -64,7 +65,7 @@ int main(void) {
     }
 
     point1:
-    printf("Student name: %s, Student Average: %.1f, Student Grade: %d\n\n",name,average,grade);
+    printf("Student: %s %s, Student Average: %.1f, Student Grade: %d\n\n",name,surname,average,grade);
     assignment_count = 1;
     score_sum = score = 0;
     goto point2;
