@@ -18,7 +18,7 @@ int main(void) {
 
     new_student:
     // Prompt for student name.
-    printf("Enter student name (Format: Name Surname, -2 to quit): ");
+    printf("Enter student name (-2 to quit): ");
     scanf("%s",&name);
     
     // Jump to termination point if name or surname is -2.
