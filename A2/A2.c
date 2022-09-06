@@ -1,8 +1,12 @@
-// Course: Hardware-oriented programming
-// Assignment: 1a
-// Student name: Mads Richardt
-// Date: 26.08.2022
-// Description: .....
+/* 
+Course: Hardware-oriented programming
+Assignment: 2
+Student name: Mads Richardt
+Student ID: s224948
+Date: 06.09.2022
+Description: A program that calculates/prints the average score and grade for students based on 
+             the names and scores entered by the user. Enjoy... 
+*/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -92,10 +96,5 @@ int main(void) {
     // Quit program and print closing message.
     quit_program:
     printf("\n\nProgram closed\n");
-
-
-
-
-
 
 }
