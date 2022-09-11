@@ -23,38 +23,36 @@ int main(void) {
 
     while (program != -1) 
     {
-        switch (program)
-        {
-        case 1: {
-            // Print welcome message when program is entered. 
-            if (counter == 0) {
-                puts("\nWelcome to Assignment_3a!");
-                counter = 1;
-            }
-
-            // call assignment_3a.
-            res = assignment_3a();
-            
-            // Close program if non-numeric input is detected. 
-            if (res == 1) {
-                program = -1;
+        switch (program) {
+            case 1: {
+                // Print welcome message when program is entered. 
+                if (counter == 0) {
+                    puts("\nWelcome to Assignment_3a!");
+                    counter = 1;
+                }
+    
+                // call assignment_3a.
+                res = assignment_3a();
+                
+                // Close program if non-numeric input is detected. 
+                if (res == 1) {
+                    program = -1;
+                    break;
+                }
+    
+                // Exit assignment_3a 
+                if (res ==2) {
+                    puts("");
+                    program = program_select(); // Select new program.
+                    counter = 0; // Reset counter.
+                }
                 break;
             }
-
-            // Exit assignment_3a 
-            if (res ==2) {
-                puts("");
-                program = program_select(); // Select new program.
-                counter = 0; // Reset counter.
-            }
-            break;
+    
+            case 2:
+                puts("A3b");
+                break;
         }
-
-        case 2:
-            puts("A3b");
-            break;
-        }
-
     }
 
     puts("Program closing...");
@@ -62,8 +60,6 @@ int main(void) {
     return 0;
     
 }
-
-
 
 // Function definitions.
 void clear_stdin() {
