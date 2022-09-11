@@ -6,26 +6,50 @@ Introduction...
 
 // Function declarations
 void clear_stdin(void);
+int program_select(void);
 int assignment_3a(void);
 int assignment_3b(void);
 
 int main(void) {
     
     // variable declarations
-    int program;
+    int program = 0, res = 0, counter = 0;
 
     // Print welcome message.
-    puts("Welcome to exercise 3!\n");
+    puts("Welcome to Assignment_3!\n");
     
     // Select program.
-    while ((program = program_select()) != -1)
-    {
+    program = program_select();
 
+    while (program != -1) 
+    {
         switch (program)
         {
-        case 1:
-            assignment_3a();
+        case 1: {
+            // Print welcome message when program is entered. 
+            if (counter == 0) {
+                puts("\nWelcome to Assignment_3a!");
+                counter = 1;
+            }
+
+            // call assignment_3a.
+            res = assignment_3a();
+            
+            // Close program if non-numeric input is detected. 
+            if (res == 1) {
+                program = -1;
+                break;
+            }
+
+            // Exit assignment_3a 
+            if (res ==2) {
+                puts("");
+                program = program_select(); // Select new program.
+                counter = 0; // Reset counter.
+            }
             break;
+        }
+
         case 2:
             puts("A3b");
             break;
@@ -33,7 +57,7 @@ int main(void) {
 
     }
 
-    puts("Program closed");
+    puts("Program closing...");
 
     return 0;
     
@@ -80,34 +104,48 @@ int program_select() {
 
 int assignment_3a() {
     /* 
-    A program that sums numbers from 0 to n.
+        A program that sums numbers from 0 to n.
     */
-    long int sum, number, scanned = 0;
     
-    printf("\n\nWelcome to assignment 3a!\n\n");
+    // variable initialization.
+    int sum = 0, number = 0, scanned = 0;
     
+    // Prompt user for input.
+    printf("Enter whole number (0 to exit Assignment_3a): ");
+    scanned = scanf("%d", &number);
     
-    do {
-        printf("Enter whole number: ");
-        scanned = scanf("%d", &number);
-        
-        if (scanned == 0) {
-            clear_stdin();
-            printf("\n\nInput Error!!!\n");
-        } 
-        else {
-            scanned = 1;
+    // If user input not an int, do this.
+    if (scanned == 0) {
+        clear_stdin();  // clear stadin buffer.
+        printf("\nInput Error!!!\n");
+        printf("Non-numeric input detected.\n");
+        return 1; 
+    }
+    
+    // If user input is 0, do this.
+    if (number == 0) {
+        return 2;
+    }
+
+    // If user input is negative, do this.
+    if (number < 0) {
+        for (int n = 0; n <= -1*number; n++) {
+            sum += n;
         }
+        sum = -1*sum + 1;
+    } 
+    // I user input is positive, do this.
+    else {
+        for (int n = 1; n <= number; n++) {
+            sum += n;
+        }
+        sum = sum;
     }
-    while (scanned == 0);
-
-    for (int n = 0; n <= number; n++) {
-        //printf("Sum = %d", sum);
-        sum += n;
-    }
-
-    printf("Sum is: %d\n", sum);
-    sum=0;
+    
+    // Print sum.
+    printf("Sum of numbers in the range [1, %d] is: %d\n\n", number, sum);
+    // Reset sum to 0.
+    sum=0; 
 
     return 0;
     
