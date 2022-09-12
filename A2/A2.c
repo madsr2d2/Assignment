@@ -69,16 +69,16 @@ int main(void) {
         if  (average <= 89 && average >= 80) {
             grade = 10;
         } 
-        if (average <= 79 && average >= 70) {
+        if  (average <= 79 && average >= 70) {
             grade = 7;
         }
-        if (average <= 69 && average >= 60) {
+        if  (average <= 69 && average >= 60) {
             grade = 4;
         }
-        if (average <= 59 && average >= 40) {
+        if  (average <= 59 && average >= 40) {
             grade = 2;
         }
-        if (average <= 39) {
+        if  (average <= 39) {
             grade = 0;
         }
     }
