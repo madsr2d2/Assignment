@@ -1,12 +1,12 @@
 #include "a3.h"
 
 // Get number from user.
-int get_int_from_user(char str[], int MIN, int MAX) {
+int get_int_from_user(char prompt_str[], int MIN, int MAX) {
     int input, scanned;
 
     while (1) {
         // Print prompt string.
-        printf(str);
+        printf(prompt_str);
         // Scan for number.
         scanned = scanf("%d", &input);
 

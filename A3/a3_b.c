@@ -39,7 +39,7 @@ void a3_b() {
             printf("\nCongratulations!!! You guessed the secrete number on attempt %d.\n", counter);
 
             // Ask user to play again or close program.
-            if (get_int_from_user("Enter 1 to play again. Enter 0 to close program: ", 0, 1) == 1) {
+            if (get_int_from_user("\nEnter 1 to play again. Enter 0 to close program: ", 0, 1) == 1) {
                 counter = 0;
                 puts("");
                 continue;
@@ -51,11 +51,11 @@ void a3_b() {
 
         // If guess is to large, do this.
         if (guess > secrete) {
-            printf("\nINCORRECT!!! Your guess is LARGER than the secrete number, try again.\n");
+            printf("\nINCORRECT!!! %d is LARGER than the secrete number, try again.\n", guess);
         }
         // If user guess is to low, do this
         else {
-            printf("\nINCORRECT!!! Your guess is LOWER than the secrete number, try again.\n");
+            printf("\nINCORRECT!!! %d is LOWER than the secrete number, try again.\n", guess);
         }
     }
 }
