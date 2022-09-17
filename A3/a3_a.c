@@ -15,7 +15,6 @@ Pseudo code:
             sum = sum_range(1, number).
             Print sum.
             Reset sum to 0.
-
 */
 
 #define MAX_N 1000000
@@ -30,7 +29,6 @@ int a3_a(void) {
     
     // Generate prompt string.
     sprintf(prompt_str,"Enter number between %d and %d (0 to exit Assignment_3a): ", MIN_N, MAX_N);
-
 
     while (1) {
         // Prompt user for input.

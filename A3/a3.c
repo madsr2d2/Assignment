@@ -1,4 +1,3 @@
-#include "a3.h"
 
 // Get number from user.
 int get_int_from_user(char prompt_str[], long MIN, long MAX, bool close_on_input_error) {
@@ -39,6 +38,7 @@ int get_int_from_user(char prompt_str[], long MIN, long MAX, bool close_on_input
     return input;
 }
 
+
 // clear standard inout buffer.
 void clear_stdin(void) {
     char dummy;
@@ -68,7 +68,8 @@ int sum_range(long x, long y) {
         return 0;
     }
 }
-    
+
+
 //Get random number from range
 int get_random_number_from_range(long x, long y) {
     long random;
