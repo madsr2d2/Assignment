@@ -9,8 +9,7 @@
 				"-fdiagnostics-color=always",
 				"-g",
 				"${file}",
-				"-o",
-				
+				"-o",		
 				"/home/madsrichardt/dtu/sem1/HNP/Assignments/A4/a4/build/${fileBasenameNoExtension}"
 			],
 			"options": {
