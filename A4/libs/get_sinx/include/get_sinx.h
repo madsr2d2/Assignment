@@ -1,0 +1,1 @@
+double get_sinx(double x, int taylor_deg);

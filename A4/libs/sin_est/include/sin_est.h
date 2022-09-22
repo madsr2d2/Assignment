@@ -1,1 +1,0 @@
-double sin_est(double x, int taylor_deg);

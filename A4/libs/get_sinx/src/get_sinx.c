@@ -1,29 +1,29 @@
 
 #define PI 3.14159265359f
 
-double get_sin(double x, int taylor_deg);
+double est_sinx(double x, int taylor_deg);
 
-double sin_est(double x, int taylor_deg) {
+double get_sinx(double x, int taylor_deg) {
     
     if (x < 0) {
-        return -get_sin(-x,taylor_deg);
+        return -est_sinx(-x, taylor_deg);
     }
     if (x >= 2*PI) {
-        return get_sin(x - 2*PI, taylor_deg);
+        return est_sinx(x - 2 * PI, taylor_deg);
     } 
     if (x >= PI) {
-        return -get_sin(x-PI,taylor_deg);
+        return -est_sinx(x - PI, taylor_deg);
     }
     if (x >= PI/2) {
-        return get_sin(PI-x,taylor_deg);
+        return est_sinx(PI - x, taylor_deg);
     }
     else {
-        return get_sin(x,taylor_deg);
+        return est_sinx(x, taylor_deg);
     }
 }
 
 // Estimate sin(x) using a Taylor series of taylor_deg degree.
-double get_sin(double x, int taylor_deg) {
+double est_sinx(double x, int taylor_deg) {
     double old_num = x;
     double new_num = 0;
     int old_denom = 1;
