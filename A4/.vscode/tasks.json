@@ -8,11 +8,12 @@
 			"args": [
 				"-fdiagnostics-color=always",
 				"-g",
-				"${workspaceFolder}/*.c",
-				"${workspaceFolder}/libs/*/*.c",
-				"${workspaceFolder}/libs/*/*.h",
+				"${workspaceFolder}/src/*.c",
+				"${workspaceFolder}/include/*.h",
+				"${workspaceFolder}/libs/*/*/*.c",
+				"${workspaceFolder}/libs/*/*/*.h",
 				"-o",
-				"${fileDirname}/output/${fileBasenameNoExtension}"
+				"${workspaceFolder}/output/${fileBasenameNoExtension}"
 			],
 			"options": {
 				"cwd": "${fileDirname}"
