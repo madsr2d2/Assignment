@@ -30,7 +30,6 @@ double get_sinx(double x) {
     if (x>=0) {
         if (x >= 2*PI) {
             x = 2*PI*((x / (2 * PI)) - floor(x / (2 * PI)));
-            printf("floor: %lf", x);
         } 
 
         if (x >= PI) {
