@@ -3,21 +3,46 @@
 double est_sinx(double x, int taylor_deg);
 
 double get_sinx(double x) {
-    
-    if (x < 0) {
-        return -est_sinx(-x, T_DEG);
+    // Handel x < 0.
+    if (x<0) {
+        
+        if (x < 2*PI) {
+            x = 2 * PI * ((x / (2 * PI)) - ceil(x / (2 * PI)));
+        }
+
+        if (x <=-3*PI/2) {
+            return est_sinx(x+2*PI, T_DEG);
+        }
+
+        if (x <= -PI) {
+            return est_sinx(-(x+PI), T_DEG);
+        }
+
+        if (x <= -PI/2) {
+            return -est_sinx(PI + x, T_DEG);
+        }
+        else {
+            return -est_sinx(-x, T_DEG);
+        }
     }
-    if (x >= 2*PI) {
-        return est_sinx(x - 2 * PI, T_DEG);
-    } 
-    if (x >= PI) {
-        return -est_sinx(x - PI, T_DEG);
-    }
-    if (x >= PI/2) {
-        return est_sinx(PI - x, T_DEG);
-    }
-    else {
-        return est_sinx(x, T_DEG);
+
+    // Handel x > 0.
+    if (x>=0) {
+        if (x >= 2*PI) {
+            x = 2*PI*((x / (2 * PI)) - floor(x / (2 * PI)));
+            printf("floor: %lf", x);
+        } 
+
+        if (x >= PI) {
+            return -est_sinx(x - PI, T_DEG);
+        }
+
+        if (x >= PI/2) {
+            return est_sinx(PI - x, T_DEG);
+        }
+        else{
+            return est_sinx(x, T_DEG);
+        }
     }
 }
 

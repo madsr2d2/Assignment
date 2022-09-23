@@ -1,16 +1,19 @@
-#include "../include/get_int_from_user.h"
+#include "../include/get_num_from_usr.h"
+
+
 
 // Get number from user.
-int get_int_from_user(char prompt_str[], long MIN, long MAX)
+double get_num_from_usr(char prompt_str[], long MIN, long MAX)
 {
-    int input, scanned;
+    double input; 
+    int scanned;
 
     while (1)
     {
         // Print prompt string.
         printf(prompt_str);
         // Scan for number.
-        scanned = scanf("%d", &input);
+        scanned = scanf("%lf", &input);
 
         // Catch non-numeric input error.
         if (scanned == 0)

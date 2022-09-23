@@ -12,6 +12,8 @@
 				"${workspaceFolder}/include/*.h",
 				"${workspaceFolder}/libs/*/*/*.c",
 				"${workspaceFolder}/libs/*/*/*.h",
+				"-l",
+				"m",
 				"-o",
 				"${workspaceFolder}/output/${fileBasenameNoExtension}"
 			],
