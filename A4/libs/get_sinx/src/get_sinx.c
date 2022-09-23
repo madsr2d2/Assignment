@@ -1,24 +1,23 @@
-
-#define PI 3.14159265359f
+#include "../include/get_sinx.h" 
 
 double est_sinx(double x, int taylor_deg);
 
-double get_sinx(double x, int taylor_deg) {
+double get_sinx(double x) {
     
     if (x < 0) {
-        return -est_sinx(-x, taylor_deg);
+        return -est_sinx(-x, T_DEG);
     }
     if (x >= 2*PI) {
-        return est_sinx(x - 2 * PI, taylor_deg);
+        return est_sinx(x - 2 * PI, T_DEG);
     } 
     if (x >= PI) {
-        return -est_sinx(x - PI, taylor_deg);
+        return -est_sinx(x - PI, T_DEG);
     }
     if (x >= PI/2) {
-        return est_sinx(PI - x, taylor_deg);
+        return est_sinx(PI - x, T_DEG);
     }
     else {
-        return est_sinx(x, taylor_deg);
+        return est_sinx(x, T_DEG);
     }
 }
 
