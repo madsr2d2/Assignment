@@ -40,14 +40,14 @@ int main(void) {
 
         }
     
-        if (select_var == 3) {
-            puts("\nExercise_4b_optional:");
-            lim1 = get_num_from_usr("Enter lower limit: ", -10000000000, 10000000000);
-        }   lim
-
-        if (select_var == 4) {
-            break;
-        }
+        //if (select_var == 3) {
+        //    puts("\nExercise_4b_optional:");
+        //    lim1 = get_num_from_usr("Enter lower limit: ", -10000000000, 10000000000);
+        //}   lim
+//
+        //if (select_var == 4) {
+        //    break;
+        //}
     }
 
     puts("Program closing...");
