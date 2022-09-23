@@ -1,12 +1,33 @@
 #include "../include/a4_main.h"
 
 int main(void) {
-    int n;
+    int select_var;
+
+    puts("Welcome To Assignment 4!\n");
     
-    double delta = 0.01;
-    double input = 597;
+    while (select_var != 3) {
+        puts("Main Menu.");
+        puts("1: Exercise_4a");
+        puts("2: Exercise_4b");
+        puts("3: Close program");
+        select_var = get_int_from_user("Please choose option: ",1,3);
 
-    printf("sin_est() =  %f", get_sinx(3.14159265359 , 10));
+        if (select_var == 1) {
+            puts("\nExercise_4a:");
+            printf("The number of bits in data type int is: %d.\n", bit_counter());
+            puts("Returning to Main Menu...\n");
+        }
 
-    //printf("Number of bits in int: %d", bit_counter());
-}  
+        if (select_var == 2) {
+            
+            puts("\nExercise_4b:");
+
+        }
+    }
+
+    puts("Program closing...");
+
+}
+  
+
+
