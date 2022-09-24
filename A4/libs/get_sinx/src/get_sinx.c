@@ -28,18 +28,22 @@ double get_sinx(double x) {
 
     // Handel x > 0.
     if (x>=0) {
-        if (x >= 2*PI) {
+        if (x >= 2*PI) 
+        {
             x = 2*PI*((x / (2 * PI)) - floor(x / (2 * PI)));
         } 
 
-        if (x >= PI) {
+        if (x >= PI) 
+        {
             return -est_sinx(x - PI, T_DEG);
         }
 
-        if (x >= PI/2) {
+        if (x >= PI/2) 
+        {
             return est_sinx(PI - x, T_DEG);
         }
-        else{
+        else
+        {
             return est_sinx(x, T_DEG);
         }
     }
