@@ -1,6 +1,6 @@
 
-#ifndef GET_NUM_FROM_USR_H
-#define GET_NUM_FROM_USR_H
+#ifndef GET_DOUBLE_H
+#define GET_DOUBLE_H
 
 #include <stdbool.h>
 #include <stdio.h>
@@ -9,7 +9,7 @@
 #define SAFE_MODE false
 
 
-double get_num_from_usr(char[], long, long);
+double get_double(char[], long, long);
 void clear_stdin(void);
 
 #endif

@@ -1,7 +1,7 @@
-#include "../include/get_num_from_usr.h"
+#include "get_double.h"
 
 // Get number from user.
-double get_num_from_usr(char prompt_str[], long MIN, long MAX)
+double get_double(char prompt_str[], long MIN, long MAX)
 {
     double input; 
     int scanned;

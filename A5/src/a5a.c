@@ -8,17 +8,15 @@ Pseudo code for main.c:
 	{{item, freq}} = get_freq(arr); 
 
 */
+#include "get_double.h"
+#include "pop_arr.h"
 
-
-
-
-
-#include "main.h"
-
-int main()
+void a5a(void)
 {
-	//get_double("Enter num: ", 0,1);
-	a5a();
+size_t ARR_SIZE = (size_t) get_double("Enter array size (0-100): ",1,100);
+double arr[ARR_SIZE];
+pop_arr(arr,ARR_SIZE);
 
-	return (0);
+
 }
+
