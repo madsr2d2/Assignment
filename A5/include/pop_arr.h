@@ -1,6 +1,9 @@
 #ifndef POP_ARR_H
 #define POP_ARR_H
 
-void arr_pop(double arr[], int SIZE);
+#include <stdio.h>
+#include "get_double.h"
+
+void pop_arr(double arr[], size_t SIZE);
 
 #endif

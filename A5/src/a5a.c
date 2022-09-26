@@ -8,8 +8,10 @@ Pseudo code for main.c:
 	{{item, freq}} = get_freq(arr); 
 
 */
-#include "get_double.h"
 #include "pop_arr.h"
+
+#include "get_double.h"
+
 
 void a5a(void)
 {

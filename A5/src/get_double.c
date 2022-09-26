@@ -1,3 +1,4 @@
+
 #include "get_double.h"
 
 // Get number from user.
