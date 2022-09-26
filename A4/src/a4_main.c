@@ -1,17 +1,18 @@
 #include "../include/a4_main.h"
 
 int main(void) {
-    int select_var;
+    //int select_var;
 
     puts("Welcome To Assignment 4!\n");
     
-    while (1) {
+    while (1) 
+    {
         puts("Main Menu:");
         puts("1: Exercise_4a");
         puts("2: Exercise_4b");
         puts("3: Exercise_4b_optional");
         puts("4: Close program");
-        select_var = get_num_from_usr("Please choose option: ",1,4);
+        int select_var = get_num_from_usr("Please choose option: ",1,4);
 
         if (select_var == 1) 
         {
@@ -25,7 +26,7 @@ int main(void) {
         {
             puts("\nExercise_4b:");
             puts("(Estimate Sin(x) using a Taylor series)");
-            double my_float;
+            //double my_float;
 
             do 
             {
@@ -44,7 +45,7 @@ int main(void) {
         {
             puts("\nExercise_4b_optional:");
             puts("(Calculate the integral of Sin(x))");
-            double my_float;
+            //double my_float = 0;
 
             do
             {
@@ -61,7 +62,8 @@ int main(void) {
             puts("");
             continue;
         }
-        else {
+        else 
+        {
             puts("");
             break;
         } 
