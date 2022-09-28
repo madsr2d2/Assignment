@@ -20,8 +20,6 @@ int binary_search(double arr[], size_t left, size_t right, double target)
             return binary_search(arr, middle + 1, right, target);
         }
     }
-
     return -1;
-    
 }
 

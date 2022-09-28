@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 
 double get_high(double arr[], size_t SIZE)
@@ -11,6 +10,5 @@ double get_high(double arr[], size_t SIZE)
             high = arr[i];
         }
     }
-
     return high;
 }

@@ -32,7 +32,6 @@ void a5b(double arr[])
     printf("Sorted array: ");    
     print_arr(arr, SIZE);
 
-
     for (size_t i = 0; i < SIZE; i++)
     {
         int count = 0;
@@ -43,12 +42,10 @@ void a5b(double arr[])
         {
             continue;
         }
-        
         //Do binary search.
         int n = binary_search(arr, 0,SIZE-1,arr[i]);
         if (n!=-1)
         {
-            
             // Calc frequency of target.
             while(arr[i]==arr[j])
             {

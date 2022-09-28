@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 
 void swap_elm(double arr[], size_t x, size_t y) 

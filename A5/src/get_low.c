@@ -9,7 +9,5 @@ double get_low(double arr[],size_t SIZE) {
             low = arr[i];
         }
     }
-
     return low;
-
 }

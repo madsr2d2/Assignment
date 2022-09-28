@@ -7,7 +7,6 @@ Pseudo code for a5a:
 	Print results.
 */
 
-
 #include <stdio.h>
 #include "pop_arr.h"
 #include "get_double.h"
@@ -22,7 +21,6 @@ size_t a5a(double arr[])
 	double low = get_low(arr,ARR_SIZE);
 	double high = get_high(arr, ARR_SIZE);
 
-
 	puts("");
 	printf("Array: ");
 	print_arr(arr, ARR_SIZE);
@@ -32,6 +30,5 @@ size_t a5a(double arr[])
 	printf("Max. value of array: %lf", high); 
 	
 	return ARR_SIZE;
-
 }
 

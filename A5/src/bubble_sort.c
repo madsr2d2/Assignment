@@ -1,10 +1,6 @@
-
-
-
 #include <stdio.h>
 #include "swap_elm.h"
 #include <stdbool.h>
-
 
 void bubble_sort(double arr[], size_t SIZE)
 {

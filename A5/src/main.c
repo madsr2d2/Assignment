@@ -53,7 +53,6 @@ int main()
 			puts("");
 		}
 
-		
 		if (select_var == 2)
 		{
 			puts("");

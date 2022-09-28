@@ -1,18 +1,13 @@
-
-
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-
 #define SAFE_MODE false
-
 
 // clear standard inout buffer.
 void clear_stdin(void)
 {
     char dummy;
-    while ((dummy = getchar()) != '\n')
-        ;
+    while ((dummy = getchar()) != '\n');
 }
 
 // Get number from user.

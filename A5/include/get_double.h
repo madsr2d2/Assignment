@@ -1,4 +1,3 @@
-
 #ifndef GET_DOUBLE_H
 #define GET_DOUBLE_H
 
