@@ -2,6 +2,6 @@
 #define PRINT_ARR_H
 
 
-void print_arr(double [], size_t); 
+void print_arr(double [], unsigned long); 
 
 #endif

@@ -1,13 +1,13 @@
 /*
-Pseudo code for main.c:
-	ARR_SIZE = get_double();
-	Initiate arr[ARR_SIZE];
-	pop_arr(arr,ARR_SIZE);
-	double low_num = get_low(arr);
-	double high_num = get_high(arr);
+Pseudo code for a5a:
+	Get array size from user.
+	Populate array.
+	Get the lowest value of array.
+	Get the highest value of array.
+	Print results.
 */
 
-//#include "a5a.h" 
+
 #include <stdio.h>
 #include "pop_arr.h"
 #include "get_double.h"
