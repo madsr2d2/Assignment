@@ -1,5 +1,19 @@
 
-#include "get_double.h"
+
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+#define SAFE_MODE false
+
+
+// clear standard inout buffer.
+void clear_stdin(void)
+{
+    char dummy;
+    while ((dummy = getchar()) != '\n')
+        ;
+}
 
 // Get number from user.
 double get_double(char prompt_str[], long MIN, long MAX)
@@ -46,10 +60,4 @@ double get_double(char prompt_str[], long MIN, long MAX)
     return input;
 }
 
-// clear standard inout buffer.
-void clear_stdin(void)
-{
-    char dummy;
-    while ((dummy = getchar()) != '\n')
-        ;
-}
+

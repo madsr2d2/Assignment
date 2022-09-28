@@ -1,4 +1,4 @@
-#include "get_low.h"
+#include <stdio.h>
 
 double get_low(double arr[],size_t SIZE) {
     double low = arr[0];

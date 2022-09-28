@@ -1,4 +1,5 @@
-#include "get_high.h"
+
+#include <stdio.h>
 
 double get_high(double arr[], size_t SIZE)
 {

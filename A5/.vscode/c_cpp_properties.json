@@ -3,7 +3,8 @@
         {
             "name": "Linux",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/include/**",
+                "/usr/include/**"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",
@@ -11,7 +12,12 @@
             "cppStandard": "c++17",
             "intelliSenseMode": "linux-gcc-x64",
             "configurationProvider": "ms-vscode.makefile-tools",
-            "browse": {"path": ["${workspaceFolder}/**"]}
+            "browse": {
+                "path": [
+                    "${workspaceFolder}/**",
+                    "/usr/include/"
+                ]
+            }
         }
     ],
     "version": 4

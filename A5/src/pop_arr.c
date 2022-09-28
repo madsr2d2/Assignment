@@ -1,4 +1,6 @@
-#include "pop_arr.h"
+
+#include <stdio.h>
+#include "get_double.h"
 
 void pop_arr(double arr[], size_t SIZE)
 {

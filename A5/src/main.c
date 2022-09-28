@@ -22,6 +22,9 @@ int main()
 	puts("************************");
 	puts("");
 
+	double my_arr[100] = {0}; 
+	size_t arr_size = 0;
+
 	while (1) 
 	{
 		puts("Main Menu:");
@@ -42,7 +45,7 @@ int main()
 			do 
 			{	
 				puts("");
-				a5a();
+				arr_size = a5a(my_arr);
 				puts("");
 				puts("");
 			} while (get_double("1: Try again\n2: Main Menu\nPlease choose option: ",1,2) == 1);	
@@ -50,14 +53,41 @@ int main()
 			puts("");
 		}
 
+		
 		if (select_var == 2)
 		{
-			/* code */
+		//	puts("");
+		//	puts("***********");
+		//	puts("Exercise 5b");
+		//	puts("***********");
+//
+		//	do 
+		//	{	
+		//		puts("");
+		//		a5b(my_arr);
+		//		puts("");
+		//		puts("");
+		//	} while (get_double("1: Try again\n2: Main Menu\nPlease choose option: ",1,2) == 1);	
+//
+		//	puts("");
 		}
 
 		if (select_var == 3)
 		{
-			/* code */
+			puts("");
+			puts("***********");
+			puts("Exercise 5c");
+			puts("***********");
+
+			do 
+			{	
+				puts("");
+				a5b(my_arr);
+				puts("");
+				puts("");
+			} while (get_double("1: Try again\n2: Main Menu\nPlease choose option: ",1,2) == 1);	
+
+			puts("");		
 		}
 
 		if (select_var == 4)
