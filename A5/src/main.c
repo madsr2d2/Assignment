@@ -22,8 +22,7 @@ int main()
 	puts("************************");
 	puts("");
 
-	double my_arr[100] = {0}; 
-	size_t arr_size = 0;
+	double my_arr[100] = {0};
 
 	while (1) 
 	{
@@ -45,7 +44,7 @@ int main()
 			do 
 			{	
 				puts("");
-				arr_size = a5a(my_arr);
+				a5a(my_arr);
 				puts("");
 				puts("");
 			} while (get_double("1: Try again\n2: Main Menu\nPlease choose option: ",1,2) == 1);	

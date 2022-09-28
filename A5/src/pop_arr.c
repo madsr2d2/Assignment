@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include "get_double.h"
 
