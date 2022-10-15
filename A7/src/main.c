@@ -1,7 +1,5 @@
 // code adapted from example found at https://codereview.stackexchange.com/questions/23845/random-sentences-generator
 
-
-
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
