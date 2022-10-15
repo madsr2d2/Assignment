@@ -18,7 +18,6 @@ const int maxWordLength = 11; // Length of longest word
 const int sentenceLength = 6; // words in sentence
 const int sentenceNumber = 50; // Number of sentences
 
-
 char* randomSentenceGenerator();
 
 int main()
@@ -60,11 +59,3 @@ char* randomSentenceGenerator() {
 
 	return sentence;
 }
-
-
-
-
-
-
-
-
