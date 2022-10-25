@@ -8,7 +8,6 @@ Date: 25-10-2022
 
 #include <stdio.h>
 #include <time.h>
-#include <stdlib.h>
 #define MAX_NAME_LENGTH 100
 
 // Data type definitions
@@ -42,7 +41,6 @@ int main()
 	puts("*********************");
 	puts("");
 
-
 	Sunhedsprofil sp = getPersonalInfo();
 	calcAge(&sp);
 	calcHartData(&sp);
@@ -59,21 +57,21 @@ Sunhedsprofil getPersonalInfo(void) {
 	scanf("%s",sp.Name);
 
 	// Get Surname.
-	printf("\nEnter surname: ");
+	printf("Enter surname: ");
 	scanf("%s", sp.Surname);
 
 	// Get birth date.
-	printf("\nEnter date of birth (format: day-month-year): ");
+	printf("Enter date of birth (format: day-month-year): ");
 	scanf("%2d%*c%2d%*c%4d", &sp.BirthDate[0], &sp.BirthDate[1], &sp.BirthDate[2]);
 
 	// Maybe do a check on the date format here... 
 
 	// Get height.
-	printf("\nEnter height in meters: ");
+	printf("Enter height in meters: ");
 	scanf("%f", &sp.Height);
 
 	// Get weight.
-	printf("\nEnter weight in kg: ");
+	printf("Enter weight in kg: ");
 	scanf("%f", &sp.Weight);
 
 	return sp;
@@ -95,4 +93,18 @@ void calcHartData(Sunhedsprofil *sp) {
 
 void calcBMI(Sunhedsprofil *sp) {
 	sp->sd.BMI = sp->Weight/(sp->Height*sp->Height);
+}
+
+void printSp(Sunhedsprofil *sp) {
+	puts("");
+	puts("*************");
+	puts("Sunhedsprofil");
+	puts("*************");
+	printf("%s %s\n", sp->Name, sp->Surname);
+	printf("%.2f m\n", sp->Height);
+	printf("%.0f kg\n", sp->Weight);
+	printf("BMI: %.1f kg/m^2\n", sp->sd.BMI);
+	printf("Maks. puls: %d\n", sp->sd.MaxPulse);
+	printf("Pulsinterval: %.1f-%.1f\n", sp->sd.TargetPulseInterval[0], sp->sd.TargetPulseInterval[1]);
+	puts("*************");
 }
