@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
-#include <string.h>
+//#include <string.h>
 
 #define NAME_LENGTH 100
 
@@ -22,8 +22,10 @@ typedef struct
 	Sunhedsdata sd;
 } Sunhedsprofil;
 
+// Function declarations 
 Sunhedsprofil getPersonalInfo(void);
-
+void calcAge(Sunhedsprofil *sp);
+void calcHartData(Sunhedsprofil *sp);
 
 int main() 
 {
@@ -35,7 +37,11 @@ int main()
 
 	Sunhedsprofil sp = getPersonalInfo();
 
-	printf("%d",sp.BirthDate[0]);
+	calcAge(&sp);
+
+	printf("%d",sp.Age);
+
+
 	
 
 	//struct tm tm;
@@ -46,7 +52,6 @@ int main()
 }
 
 Sunhedsprofil getPersonalInfo(void) {
-
 	Sunhedsprofil sp;
 	
 	// Get First Name.
@@ -72,4 +77,12 @@ Sunhedsprofil getPersonalInfo(void) {
 	scanf("%f", &sp.Weight);
 
 	return sp;
+}
+
+void calcAge(Sunhedsprofil *sp) {
+	// Get tm struct
+	time_t t = time(NULL);
+	struct tm *tm = localtime(&t);
+	// Calculate and assign age to sp.Age
+	sp->Age = tm->tm_year+(1900-sp->BirthDate[2]);
 }
