@@ -51,29 +51,21 @@ int main()
 // Function definitions.
 Sunhedsprofil getPersonalInfo(void) {
 	Sunhedsprofil sp;
-	
 	// Get First Name.
 	printf("Enter first name: ");
 	scanf("%s",sp.Name);
-
 	// Get Surname.
 	printf("Enter surname: ");
 	scanf("%s", sp.Surname);
-
 	// Get birth date.
 	printf("Enter date of birth (format: day-month-year): ");
 	scanf("%2d%*c%2d%*c%4d", &sp.BirthDate[0], &sp.BirthDate[1], &sp.BirthDate[2]);
-
-	// Maybe do a check on the date format here... 
-
 	// Get height.
 	printf("Enter height in meters: ");
 	scanf("%f", &sp.Height);
-
 	// Get weight.
 	printf("Enter weight in kg: ");
 	scanf("%f", &sp.Weight);
-
 	return sp;
 }
 
@@ -86,16 +78,19 @@ void calcAge(Sunhedsprofil *sp) {
 }
 
 void calcHartData(Sunhedsprofil *sp) {
+	// Calculate and assign hart date to sp.
 	sp->sd.MaxPulse = 220 - sp->Age;
 	sp->sd.TargetPulseInterval[0] = sp->sd.MaxPulse*0.5;
 	sp->sd.TargetPulseInterval[1] = sp->sd.MaxPulse * 0.85;
 }
 
 void calcBMI(Sunhedsprofil *sp) {
+	// Calculate and assign BMI to sp.
 	sp->sd.BMI = sp->Weight/(sp->Height*sp->Height);
 }
 
 void printSp(Sunhedsprofil *sp) {
+	// Print sp.
 	puts("");
 	puts("*************");
 	puts("Sunhedsprofil");
