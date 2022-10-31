@@ -44,20 +44,20 @@ int main()
 	//fprintf(fPtr, "%s,%s,%u\n", "Vladimir", "Putin", 99999999);
 
 	// load csv file into array of Person structs.
-	Person dataBase[MAX_DATA_BASE_LENGTH];
+	Person *dataBase[MAX_DATA_BASE_LENGTH];
 
 	Person person;
 	int counter = 0;
 
 	while ((fscanf(fPtr, "%[^,]%*[, ]%[^,]%*[, ]%u", person.firstName, person.lastName, &person.phoneNumber))==3)
 	{
-		strcpy(dataBase[counter].firstName, person.firstName);
-		strcpy(dataBase[counter].lastName, person.lastName);
-		dataBase[counter].phoneNumber = person.phoneNumber;
+		strcpy(dataBase[counter]->firstName, person.firstName);
+		strcpy(dataBase[counter]->lastName, person.lastName);
+		dataBase[counter]->phoneNumber = person.phoneNumber;
 
-		printf("%s\n",dataBase[counter].firstName);
-		printf("%s\n", dataBase[counter].lastName);
-		printf("%d\n", dataBase[counter].phoneNumber);
+		printf("%s\n", dataBase[counter]->firstName);
+		printf("%s\n", dataBase[counter]->lastName);
+		printf("%d\n", dataBase[counter]->phoneNumber);
 
 		counter++;
 	}
@@ -82,9 +82,9 @@ int main()
 	return 0;
 }
 
-void loadDataBase (Person dataBase[], FILE *scv_file) {
-	
-}
+//void loadDataBase (Person dataBase[], FILE *scv_file) {
+//
+//}
 
 
 
