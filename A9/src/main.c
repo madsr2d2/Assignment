@@ -11,18 +11,15 @@ typedef struct person
 	unsigned int phoneNumber;
 } Person;
 
-
 // Function declarations
 void loadScvFile(Person *dataBase[], char *fileName);
 void addPersonToCsvFile(char *filename);
 void findPersonFromPhoneNumber(char *fileName);
 
-	int main()
-{
+int main() {
 	char fileName[MAX_NAME_LENGTH];
 	Person *dataBase[MAX_DATA_BASE_LENGTH];
 	
-
 	puts("***********************");
 	puts("Welcome to Assignment 9");
 	puts("***********************");
@@ -39,6 +36,7 @@ void findPersonFromPhoneNumber(char *fileName);
 
 		printf("\n1: Add person to %s.\n2: Search %s on Phone Number.\n3: Close Program.\nPlease choose option: ", fileName, fileName);
 		scanf("%1d", &controlVar);
+		puts("");
 
 		if (controlVar==1)
 		{
@@ -52,11 +50,10 @@ void findPersonFromPhoneNumber(char *fileName);
 		if (controlVar == 3)
 		{
 			break;
-		}
-		
+		}		
 	}
 
-	puts("\nProgram closing...");
+	puts("Program closing...");
 	return 0;
 }
 
@@ -126,11 +123,13 @@ void findPersonFromPhoneNumber (char *fileName) {
 	size_t len = 0;
 	char match = 0;
 	Person person;
+	
 	while ((getline(&line, &len, fPtr)) != -1)
 	{
 		sscanf(line, "%[^,]%*[, ]%[^,]%*[, ]%u", person.firstName, person.lastName, &person.phoneNumber);
 		if (phoneNumber == person.phoneNumber) {
-			printf("%s, %s, %d", person.firstName, person.lastName, person.phoneNumber);
+			puts("Match found:");
+			printf("%s, %s, %d\n", person.firstName, person.lastName, person.phoneNumber);
 			match = 1;
 			break;
 		}
