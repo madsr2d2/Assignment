@@ -16,7 +16,7 @@ To do:
 
 
 // Define test string.
-#define TEST_STRING "Mads1, Richardt1, 41, Skjulhøj alle 23, 53600868"
+#define TEST_STRING "Mads1, Richardt1, 41, Skjulhøj alle 23 53600868"
 
 // Declaration of person struct
 typedef struct person
@@ -65,7 +65,9 @@ Person *linkedListFromScvFile(char *fileName, size_t *personCount);
 
 	Person *linkedPersonList = linkedListFromScvFile(fileName, &personCount);
 
-	printf("%s",linkedPersonList->nextPtr->nextPtr->address);
+	printf("%p\n",linkedPersonList);
+	//printf("%s", linkedPersonList->nextPtr->nextPtr->firstName);
+
 	printf("%lu",personCount);
 
 	/*
@@ -98,76 +100,8 @@ Person *linkedListFromScvFile(char *fileName, size_t *personCount);
 */
 }
 
-/*
-Person * linkedListFromScvFile(char *fileName)
-{
-	// Open file
-	FILE *fPtr = fopen(fileName, "r+");
-	// Creat new file is file does not exists.
-	if (fPtr == NULL)
-	{
-		printf("Creating SCV file %s...\n", fileName);
-		fPtr = fopen(fileName, "w+");
-	}
 
 
-
-	// Load SCV file into database
-	char *line = (char *)malloc(250);
-	size_t len = 0;
-	size_t personCount = 0;
-
-	// Allocate start node in the heap
-	Person *startPersonPtr = (Person *)malloc(sizeof(Person));
-
-
-
-
-	Person *previousPersonPtr;
-	Person *currentPersonPtr;
-
-
-
-	while ((getline(&line, &len, fPtr)) != -1)
-	{
-		puts(line);
-
-		if (personCount == 0)
-		{
-			sscanf(line, "%[^,]%*[, ]%[^,]%*[, ]%u%*[, ]%[^,]%*[, ]%u", startPersonPtr->firstName, startPersonPtr->lastName, &startPersonPtr->age, startPersonPtr->address, &startPersonPtr->phoneNumber);
-
-
-			startPersonPtr->nextPtr = NULL;
-			Person *previousPersonPtr = startPersonPtr;
-			personCount++;
-
-			printf("Previous name %s", startPersonPtr->firstName);
-		}
-		else
-		{
-			currentPersonPtr = (Person *)malloc(sizeof(Person));
-			sscanf(line, "%[^,]%*[, ]%[^,]%*[, ]%u%*[, ]%[^,]%*[, ]%u", currentPersonPtr->firstName, currentPersonPtr->lastName, &currentPersonPtr->age, currentPersonPtr->address, &currentPersonPtr->phoneNumber);
-
-
-			currentPersonPtr->nextPtr = NULL;
-
-			previousPersonPtr->nextPtr = currentPersonPtr;
-
-			printf("Previous ptr %p", previousPersonPtr->nextPtr);
-
-			previousPersonPtr = currentPersonPtr;
-			personCount++;
-		}
-
-	}
-
-	// Close file
-	free(line);
-	fclose(fPtr);
-
-	return startPersonPtr;
-}
-*/
 
 /*
 void addPersonToCsvFile(char *filename)
@@ -235,38 +169,57 @@ Person *linkedListFromScvFile(char *fileName, size_t *personCount)
 {
 	// Declare node pointers.
 	Person *startNode, *tempNode, *currentNode;
-
-	// Allocate space for start node in heap.
-	//startNode = (Person *)malloc(sizeof(Person));
-
+	
 	// Open file
 	FILE *fPtr = fopen(fileName, "r+");
-	// Creat new file is file does not exists.
+	
+	// If file does not exists return fPtr. 
 	if (fPtr == NULL)
 	{
-		printf("Creating SCV file %s...\n", fileName);
-		fPtr = fopen(fileName, "w+");
+		return (Person *)fPtr;
 	}
 
 	// Declare getline() buffer pointer.
 	char *line = NULL;
+	
 	// Declare getline() buffer size.
 	size_t len = 0;
 	
+	// Scan file line by line.
 	while ((getline(&line, &len, fPtr)) != -1)
 	{
 		if (*personCount == 0)
-		{
+		{	
+			// Increment personCount
+			*personCount = *personCount + (size_t)1;
+
+			// Initialize startNode.
 			startNode = stringToPersonPointer(line);
+			
+			// Return NULL if stringToPersonPointer() did not scan all members correctly.
+			if (startNode == NULL)
+			{
+				return startNode;
+			}
+			
 			tempNode = startNode;
-			*personCount = *personCount + (size_t) 1;
 		}
 		else
-		{
+		{	
+			// Increment personCount.
+			*personCount = *personCount + (size_t)1;
+
+			// Initialize currentNode.
 			currentNode = stringToPersonPointer(line);
+			
+			// Return NULL if stringToPersonPointer() did not scan all members correctly.
+			if (currentNode == NULL)
+			{
+				return currentNode;
+			}
+
 			tempNode->nextPtr = currentNode;
 			tempNode = currentNode;
-			*personCount = *personCount + (size_t) 1;
 		}
 	}
 
@@ -277,3 +230,4 @@ Person *linkedListFromScvFile(char *fileName, size_t *personCount)
 	
 	return startNode;
 }
+
