@@ -1,11 +1,9 @@
 /*
-To do:
-	Make a view function.
-	Make alle functions return something
-	Convert all the ifs in main to a switch 
+Course: Hardware oriented programming
+Assignment: 10 
+Student: Mads Richardt
+Student ID: s224948
 */
-
-
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -13,10 +11,8 @@ To do:
 #define MAX_NAME_LENGTH 50
 #define MAX_ADDRESS_LENGTH 100
 #define MAX_DATA_BASE_LENGTH 100
-//#define NEW_PERSON = {NULL, NULL, 0, NULL, 0, NULL}
 
 // Declaration of person struct
-
 typedef struct person
 {
 	char firstName[MAX_NAME_LENGTH];
@@ -27,7 +23,6 @@ typedef struct person
 	struct person *nextPtr;
 } Person;
 
-Person *asd;
 // Function declarations
 int addPersonToCsvFile(char *filename);
 Person *stringToPersonPointer(char *string);
