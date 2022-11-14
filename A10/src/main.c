@@ -9,102 +9,173 @@ To do:
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #define MAX_NAME_LENGTH 50
 #define MAX_ADDRESS_LENGTH 100
 #define MAX_DATA_BASE_LENGTH 100
-#define NEW_PERSON = {NULL, NULL, 0, NULL, 0, NULL}
-
-
-// Define test string.
-#define TEST_STRING "Mads1, Richardt1, 41, Skjulhøj alle 23 53600868"
+//#define NEW_PERSON = {NULL, NULL, 0, NULL, 0, NULL}
 
 // Declaration of person struct
+
 typedef struct person
 {
 	char firstName[MAX_NAME_LENGTH];
 	char lastName[MAX_NAME_LENGTH];
 	unsigned int age;
 	char address[MAX_ADDRESS_LENGTH];
-	unsigned int phoneNumber;
+	size_t phoneNumber;
 	struct person *nextPtr;
 } Person;
 
+Person *asd;
 // Function declarations
-//size_t loadScvFile(Person *dataBase[], char *fileName);
-//void addPersonToCsvFile(char *filename);
-//void findPersonFromPhoneNumber(char *fileName);
+int addPersonToCsvFile(char *filename);
 Person *stringToPersonPointer(char *string);
-Person *linkedListFromScvFile(char *fileName, size_t *personCount);
+Person *scvFileToLinkedList(char *fileName, size_t *personCount);
+int sortLinkedPersonList(Person **startNode, size_t personCount);
+Person *swapNodes(Person *node1Ptr, Person *node2Ptr);
+Person *getMiddleNode(Person *headNode, size_t length);
+Person *linkedListBinarySearch(Person *headNode, size_t value, size_t length);
+int viewPerson(Person *person);
 
-	int main()
+int main()
 {
 	
-	Person *person;
+	char fileName[MAX_NAME_LENGTH] = "database";
+	size_t personCount = 0;
+	int controlVar = 0;
+	Person *headNode = NULL;
+	int sortedFlag = 0;
 
-	person = stringToPersonPointer(TEST_STRING);
-
-	printf("%s",person->firstName);
-
-	
-	char fileName[MAX_NAME_LENGTH];
-	//Person *dataBase[MAX_DATA_BASE_LENGTH];
-
-	
 	puts("***********************");
 	puts("Welcome to Assignment 9");
 	puts("***********************");
-
+	
 	// Get file name from user
 	printf("\nEnter data base name: ");
 	scanf("%s", fileName);
+
+	// Load SCV file into linked list.
+	headNode = scvFileToLinkedList(fileName, &personCount);
+
+	// Sort linked list.
+	sortLinkedPersonList(&headNode,personCount);
+	sortedFlag = 1;
 	
-
-	// Load SCV file into database
-	//loadScvFile(dataBase, fileName);
-	size_t personCount = 0;
-
-	Person *linkedPersonList = linkedListFromScvFile(fileName, &personCount);
-
-	printf("%p\n",linkedPersonList);
-	//printf("%s", linkedPersonList->nextPtr->nextPtr->firstName);
-
-	printf("%lu",personCount);
-
-	/*
-	while (1)
+	
+	// Check for format error
+	if (personCount > 0 && headNode == NULL)
 	{
-		int controlVar = 0;
+		printf("Format error on line %lu of csv file %s\n", personCount, fileName);
+		printf("Program closing...");
+		exit(0);
+	}
+	// Check if file exits
+	if (personCount == 0 && headNode == NULL)
+	{
+		printf("File could not be opened.");
+		printf("Program closing...");
+		exit(0);
+	}
 
+	do
+	{
 		printf("\n1: Add person to %s.\n2: Search %s on Phone Number.\n3: Close Program.\nPlease choose option: ", fileName, fileName);
 		scanf("%1d", &controlVar);
 		puts("");
 
-		if (controlVar == 1)
+		switch (controlVar)
 		{
-			addPersonToCsvFile(fileName);
+			case 1:
+			{
+				addPersonToCsvFile(fileName);
+				sortedFlag = 0;
+				break;
+			}
+			case 2:
+			{
+				size_t searchNumber;
+				
+				// Get phone number
+				printf("Enter phone number: ");
+				scanf("%lu",&searchNumber);
+
+				// Sort if not sorted
+				if (sortedFlag == 0) 
+				{
+					personCount = 0;
+
+					// Load SCV file into linked list.
+					headNode = scvFileToLinkedList(fileName, &personCount);
+
+					// Sort linked list
+					sortLinkedPersonList(&headNode, personCount);
+
+					// set sorted flag
+					sortedFlag = 1;
+				}
+
+				Person *result = linkedListBinarySearch(headNode, searchNumber, personCount);
+
+				if (result == NULL)
+				{
+					puts("No match found.");
+				}
+				else {
+					puts("\nMatch found:");
+					viewPerson(result);
+				}
+				
+				break;
+			}
+			default:
+				break;
 		}
 
-		if (controlVar == 2)
-		{
-			//findPersonFromPhoneNumber(fileName);
-		}
+	} while (controlVar != 3);
 
-		if (controlVar == 3)
-		{
-			break;
-		}
-	}
-
+	// Close program.
 	puts("Program closing...");
 	return 0;
-*/
 }
 
+Person *linkedListBinarySearch(Person *headNode, size_t value, size_t length)
+{	
+	Person *startNode = headNode;
 
+	do
+	{
+		// Get middle node.
+		Person *middleNode = getMiddleNode(startNode, length);
+		
+		// Return NULL if middle is empty
+		if (middleNode == NULL)
+		{
+			return NULL;
+		}
 
+		// If middleNode contains value, return middleNode
+		if (middleNode->phoneNumber == value)
+		{
+			return middleNode;
+		}
 
-/*
-void addPersonToCsvFile(char *filename)
+		// If value larger than middleNode->phoneNumber
+		if (middleNode->phoneNumber < value)
+		{
+			startNode = middleNode->nextPtr;
+			length = length/2;
+		}
+		else
+		{
+			length = length/2;
+		}
+	} while (1);
+
+	return NULL;
+}
+
+int addPersonToCsvFile(char *filename)
 {
 	// Open file in append mode
 	FILE *fPtr = fopen(filename, "a+");
@@ -130,13 +201,14 @@ void addPersonToCsvFile(char *filename)
 
 	// Get phone number from user.
 	printf("Enter Phone Number: ");
-	scanf("%u", &person.phoneNumber);
+	scanf("%lu", &person.phoneNumber);
 
 	// Append person to SCV file.
-	fprintf(fPtr, "\n%s, %s, %u, %s, %u", person.firstName, person.lastName, person.age, person.address, person.phoneNumber);
+	fprintf(fPtr, "\n%s, %s, %u, %s, %lu", person.firstName, person.lastName, person.age, person.address, person.phoneNumber);
 	fclose(fPtr);
+
+	return 1;
 }
-*/
 
 Person *stringToPersonPointer(char *string)
 {
@@ -144,7 +216,7 @@ Person *stringToPersonPointer(char *string)
 	Person *person;
 
 	// Initialize format string.
-	char *formatString = "%[^,]%*[, ]%[^,]%*[, ]%u%*[, ]%[^,]%*[, ]%u";
+	char *formatString = "%[^,]%*[, ]%[^,]%*[, ]%u%*[, ]%[^,]%*[, ]%zu";
 
 	// Allocate space for Person struct in heap.
 	person = (Person *)malloc(sizeof(Person));
@@ -165,7 +237,7 @@ Person *stringToPersonPointer(char *string)
 	return person;
 }
 
-Person *linkedListFromScvFile(char *fileName, size_t *personCount)
+Person *scvFileToLinkedList(char *fileName, size_t *personCount)
 {
 	// Declare node pointers.
 	Person *startNode, *tempNode, *currentNode;
@@ -184,7 +256,7 @@ Person *linkedListFromScvFile(char *fileName, size_t *personCount)
 	
 	// Declare getline() buffer size.
 	size_t len = 0;
-	
+
 	// Scan file line by line.
 	while ((getline(&line, &len, fPtr)) != -1)
 	{
@@ -194,11 +266,16 @@ Person *linkedListFromScvFile(char *fileName, size_t *personCount)
 			*personCount = *personCount + (size_t)1;
 
 			// Initialize startNode.
+
 			startNode = stringToPersonPointer(line);
 			
 			// Return NULL if stringToPersonPointer() did not scan all members correctly.
 			if (startNode == NULL)
 			{
+				// Free line buffer
+				free(line);
+				// Close file
+				fclose(fPtr);
 				return startNode;
 			}
 			
@@ -215,6 +292,10 @@ Person *linkedListFromScvFile(char *fileName, size_t *personCount)
 			// Return NULL if stringToPersonPointer() did not scan all members correctly.
 			if (currentNode == NULL)
 			{
+				// Free line buffer
+				free(line);
+				// Close file
+				fclose(fPtr);
 				return currentNode;
 			}
 
@@ -231,3 +312,66 @@ Person *linkedListFromScvFile(char *fileName, size_t *personCount)
 	return startNode;
 }
 
+int sortLinkedPersonList(Person **startNode, size_t personCount)
+{
+	Person **tempNode;
+	size_t swapped;
+	Person *p1, *p2;
+
+	// Outer loop
+	for (size_t i = 0; i <= personCount; i++)
+	{
+		
+		tempNode = startNode;
+		swapped = 0;
+
+		// Inner loop
+		for (size_t j = 0; j < personCount - i -1; j++)
+		{
+			p1 = *tempNode;
+			p2 = p1->nextPtr;
+
+			if (p1->phoneNumber > p2->phoneNumber)
+			{
+				*tempNode = swapNodes(p1,p2);
+				swapped = 1;
+			}
+
+			tempNode = &(*tempNode)->nextPtr;			
+		}
+		if (swapped == 0)
+		{
+			break;
+		}
+	}
+	return 1;
+}
+
+Person *swapNodes(Person *node1Ptr, Person *node2Ptr)
+{
+	Person *temp = node2Ptr->nextPtr;
+	node2Ptr->nextPtr = node1Ptr;
+	node1Ptr->nextPtr = temp;
+
+	return node2Ptr;
+}
+
+Person *getMiddleNode(Person *headNode, size_t length)
+{
+	Person *middleNode = headNode;
+	// find middle node
+	for (size_t i = 1; i < length / 2; i++)
+	{
+		middleNode = middleNode->nextPtr;
+	}
+	return middleNode;
+}
+
+int viewPerson(Person *person)
+{
+	printf("Name: %s %s\n", person->firstName,person->lastName);
+	printf("Age: %u\n",person->age);
+	printf("Address: %s\n",person->address);
+	printf("Phone number: %lu\n", person->phoneNumber);
+	return 1;
+}
