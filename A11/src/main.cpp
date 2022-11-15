@@ -1,4 +1,6 @@
 #include <iostream>
+#include <cstdio>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -6,12 +8,12 @@ using namespace std;
 
 int main(void)
 {
-	//Person person("mads","richardt",41,"address 1",111);
+	char scvFile[100] = "database";
+	
+	DataBase database;
+	database.loadScvFile(scvFile);
+	database.view();
+	database.bubbleSort();
+	database.view();
 
-	Person person;
-	person.setFirstName("mads");
-	person.setLastName("Ric");
-	person.ge
-	person.view();
-	cout << "Hello world!" << endl;
 }
