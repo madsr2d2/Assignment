@@ -1,3 +1,10 @@
+/*
+Course: Hardware oriented programming
+Assignment: 11
+Student: Mads Richardt
+Student ID: s224948
+*/
+
 #include <string.h> 
 #include <iostream>
 #include <cstdio>
@@ -70,6 +77,7 @@ private:
         char *token;
         const char *delim = ",";
 
+        // Loop through string
         token = strtok(stringPtr, delim);
 
         person->setFirstName(token);
@@ -86,8 +94,6 @@ private:
 
         person->setPhoneNumber((long) atoi(token));
         token = strtok(NULL, delim);
-
-       // person->view();
         }
 
 public:
@@ -246,12 +252,15 @@ public:
 
     // Function to delete person from database.
     void deletePerson(size_t index)
-    {
-        for (size_t i = index; i < personCount; ++i)
+    {   
+        if (index<personCount)
         {
-            dataBase[i] = dataBase[i + 1];
+            for (size_t i = index; i < personCount; ++i)
+            {
+                dataBase[i] = dataBase[i + 1];
+            }
             personCount--;
-        }
+        }   
     }
 
     // Save to SCV file

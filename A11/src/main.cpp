@@ -53,7 +53,8 @@ int main(void)
 		switch (selectVar)
 		{
 			case 1:
-			{	
+			{
+				puts("");
 				database.view();
 				break;
 			}
@@ -85,6 +86,7 @@ int main(void)
 				scanf("%lu", &temp);
 				getchar();	
 				long res = database.searchOnPhoneNumber(temp);
+				puts("");
 				if (res == -1)
 				{
 					puts("No Match Found.");
