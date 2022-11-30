@@ -1,9 +1,11 @@
 #include "musicBox.h"
+#include <iostream>
 
 //  function  to  play  a  tune
 void MusicBox::play(const char *tune)
 {
     p = tune;      //  pointer  to  tune  string timebase  =  20; //  default  time  base
+    timebase = 20;
     state = Start; //  start  in  state  Start
     c = *p;        //  read  first  character
     p++;           //  advance  pointer  for  reading  next  character
@@ -14,9 +16,11 @@ void MusicBox::play(const char *tune)
         switch (state)
         {
         case Start: //  Read  next  item SStart();  break;
-
+            MusicBox::SStart();
+            break;
         case T1: //  interpret  timebase ST1(); break;
-
+            MusicBox::ST1();
+            break;
         case T2: //  state  T2:  calculate  timebase ST2(); break;
 
         case T3: //  state  T3:  save  timebase ST3(); break;
@@ -68,4 +72,35 @@ void MusicBox::SStart()
     default: //  anything  else  should  give  an  error state  =  Error;
         break;
     }
+}
+
+void MusicBox::ST1()
+{   
+    std::cout << "state T1";
+    c = *p; // read last time digit
+    timebase = (int) c;
+    state = T2;
+    p++;
+}
+
+void MusicBox::ST2()
+{
+    c = *p;
+    if (c == ',') 
+    {
+        state = T3;
+    }
+    else 
+    {
+        state = T2;
+        timebase = timebase*10 + (int) c;
+    }
+    p++;
+}
+
+
+void MusicBox::ST3()
+{
+    state = Start;
+    p++;
 }
