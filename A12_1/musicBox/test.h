@@ -1,0 +1,1 @@
+#define my_var 10

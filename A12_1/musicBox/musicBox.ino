@@ -1,13 +1,5 @@
-/*
-| spilledåse.cpp
-| Version: 2.00
-| Created by: Agner Fog
-| Created date: 2018-11-20
-| Last modified: 2019-11-19
-| Description: Example of music box playing a tune after notes sheet.
-*/
-#include <algorithm>
-#include <iostream>
+#include <Arduino.h>
+#include <AceCommon.h>
 
 // table of frequencies
 const unsigned int freq[36] = {
@@ -16,6 +8,7 @@ const unsigned int freq[36] = {
     262, 277, 294, 311, 330, 349, 370, 392, 415, 440, 466, 494, // default octave
     523, 554, 587, 622, 659, 698, 740, 784, 831, 880, 932, 988  // high octave
 };
+
 // Name states for state machine
 enum States
 {
@@ -37,30 +30,31 @@ class StateMachine
 {
 public:
     int play(const char *tune); // play the tune protected:
-    void SStart();               // start state
-    void ST1();                  // state T1: interpret tempo
-    void ST2();                  // state T2: calculate tempo
-    void ST3();                  // state T3: save tempo
-    void SP1();                  // state P1: interpret pause
-    void SP2();                  // state P2: calculate length of pause
-    void SP3();                  // state P3: play pause
-    void SN1();                  // state N1: interpret note
-    void SN2();                  // state N2: calculate length of note
-    void SN3();                  // state N3: play note
-    void SError();               // state error
+    void SStart();              // start state
+    void ST1();                 // state T1: interpret tempo
+    void ST2();                 // state T2: calculate tempo
+    void ST3();                 // state T3: save tempo
+    void SP1();                 // state P1: interpret pause
+    void SP2();                 // state P2: calculate length of pause
+    void SP3();                 // state P3: play pause
+    void SN1();                 // state N1: interpret note
+    void SN2();                 // state N2: calculate length of note
+    void SN3();                 // state N3: play note
+    void SError();              // state error
     void SStop();
     int findIndex(int);
-    States state;            // state in syntax parsing
-    int timebase;                // time unit 
-    int pitch;                   // note to play
-    int duration;                // duration of note or pause
-    const char *p;               // position in tune string
-    char c;                      // current character in tune string
+    States state;    // state in syntax parsing
+    int timebase;    // time unit
+    int pitch;       // note to play
+    int duration;    // duration of note or pause
+    const char *p;   // position in tune string
+    char c;          // current character in tune string
+    int speeker = 2; // Pin connected to buzzer on arduino
 };
 // function to play a tune
 int StateMachine::play(const char *tune)
 {
-    p = tune;      // pointer to tune string timebase = 20; // default time base
+    p = tune; // pointer to tune string timebase = 20; // default time base
     timebase = 20;
     state = Start; // start in state Start
     c = *p;        // read first character
@@ -70,18 +64,41 @@ int StateMachine::play(const char *tune)
     {
         switch (state)
         {
-        case Start: SStart(); break; // Read next item SStart(); break;
-        case T1: ST1(); break;    // interpret timebase ST1(); break;
-        case T2: ST2(); break;    // state T2: calculate timebase ST2(); break;
-        case T3: ST3(); break;  // state T3: save timebase ST3(); break;
-        case P1: SP1(); break;   // state P1: interpret pause SP1(); break;
-        case P2: SP2(); break;   // state P2: calculate length of pause SP2(); break;
-        case P3: SP3(); break;   // state P3: play pause SP3(); break;
-        case N1: SN1(); break;    // state N1: interpret note SN1(); break;
-        case N2: SN2(); break;   // state N2: calculate length of note SN2(); break;
-        case N3: SN3(); break;   // state N3: play note SN3(); break;
-        case Error: SError(); return 1; // state error SError();
-        case Stop: return 0;
+        case Start:
+            SStart();
+            break; // Read next item SStart(); break;
+        case T1:
+            ST1();
+            break; // interpret timebase ST1(); break;
+        case T2:
+            ST2();
+            break; // state T2: calculate timebase ST2(); break;
+        case T3:
+            ST3();
+            break; // state T3: save timebase ST3(); break;
+        case P1:
+            SP1();
+            break; // state P1: interpret pause SP1(); break;
+        case P2:
+            SP2();
+            break; // state P2: calculate length of pause SP2(); break;
+        case P3:
+            SP3();
+            break; // state P3: play pause SP3(); break;
+        case N1:
+            SN1();
+            break; // state N1: interpret note SN1(); break;
+        case N2:
+            SN2();
+            break; // state N2: calculate length of note SN2(); break;
+        case N3:
+            SN3();
+            break; // state N3: play note SN3(); break;
+        case Error:
+            SError();
+            return 1; // state error SError();
+        case Stop:
+            return 0;
         default:
             return 0;
             break;
@@ -109,35 +126,35 @@ void StateMachine::SStart()
     case 'h':
         state = N1;
         break;
-    case ',':
-        break;  // ignore comma break;
-    case '\0':   // end of string
+    case ',':  // ignore comma break;
+    case '\0': // end of string
         state = Stop;
         break;
     default: // anything else should give an error state = Error;
-       state=Error;
-       break;
+        state = Error;
+        break;
     }
 }
 
 void StateMachine::ST1()
 {
     c = *p;
-    timebase = (int) c -48;
+    timebase = (int)c - 48;
     p++;
     c = *p;
     if (c == ',')
     {
-       state = T3;
+        state = T3;
     }
     else
     {
-       state = T2;
+        state = T2;
     }
 }
 
 void StateMachine::ST2()
 {
+
     timebase = timebase * 10 + (int)c - 48;
     p++;
     c = *p;
@@ -155,9 +172,9 @@ void StateMachine::ST3()
 }
 
 void StateMachine::SN1()
-{ 
-    const unsigned int *it;
-    
+{
+    size_t index;
+
     switch (c)
     {
     case 'c':
@@ -167,7 +184,7 @@ void StateMachine::SN1()
         pitch = freq[14];
         break;
     case 'e':
-        pitch = freq [16];
+        pitch = freq[16];
         break;
     case 'f':
         pitch = freq[17];
@@ -177,32 +194,32 @@ void StateMachine::SN1()
         break;
     case 'a':
         pitch = freq[21];
-        break;        
+        break;
     case 'h':
         pitch = freq[23];
         break;
     case '-':
-        it = std::find(freq,freq+36,pitch);
-        pitch = freq[std::distance(freq,it) - 1];
+        index = ace_common::binarySearch(freq, 36, (const unsigned int)pitch);
+        pitch = freq[index - 1];
         break;
     case '#':
-        it = std::find(freq, freq + 36, pitch);
-        pitch = freq[std::distance(freq,it) + 1];
+        index = ace_common::binarySearch(freq, 36, (const unsigned int)pitch);
+        pitch = freq[index + 1];
         break;
     case '<':
-        it = std::find(freq, freq + 36, pitch);
-        pitch = freq[std::distance(freq,it) - 12];
+        index = ace_common::binarySearch(freq, 36, (const unsigned int)pitch);
+        pitch = freq[index - 12];
         break;
     case '>':
-        it = std::find(freq, freq + 36, pitch);
-        pitch = freq[std::distance(freq,it) + 12];
+        index = ace_common::binarySearch(freq, 36, (const unsigned int)pitch);
+        pitch = freq[index + 12];
         break;
     default:
         break;
     }
     p++;
-    c=*p;
-    if (std::isdigit(c))
+    c = *p;
+    if (isDigit(c))
     {
         duration = 0;
         state = N2;
@@ -213,15 +230,15 @@ void StateMachine::SN2()
 {
     if (duration == 0)
     {
-        duration = (int)c -48;
+        duration = (int)c - 48;
     }
     else
     {
-        duration = duration*10 + (int)c - 48;
+        duration = duration * 10 + (int)c - 48;
     }
     p++;
-    c=*p;
-    if (c==',')
+    c = *p;
+    if (c == ',')
     {
         state = N3;
     }
@@ -229,9 +246,11 @@ void StateMachine::SN2()
 
 void StateMachine::SN3()
 {
+    tone(speeker, pitch);
+    delay(duration * 7 * timebase);
+    noTone(speeker);
+    delay(duration * 1 * timebase);
 
-    std::cout << "play freq: " << pitch << "for duration: " << duration * 7 * timebase << std::endl;
-    std::cout << "pause: " << duration * 1 * timebase << std::endl;
     p++;
     c = *p;
     state = Start;
@@ -242,68 +261,45 @@ void StateMachine::SP1()
     duration = 0;
     state = P2;
     p++;
-    c=*p;
+    c = *p;
     state = P2;
 }
 
 void StateMachine::SP2()
 {
-    if (duration == 0) {
+    if (duration == 0)
+    {
         duration = (int)c - 48;
     }
-    else {
-        duration = duration*10 + (int)c -48;
+    else
+    {
+        duration = duration * 10 + (int)c - 48;
     }
     p++;
-    c=*p;
-    if (!std::isdigit(c)){
+    c = *p;
+    if (!isDigit(c))
+    {
         state = P3;
     }
 }
 
-void StateMachine::SP3() {
-    std::cout << "Pause : " << duration*8*timebase << std::endl;
+void StateMachine::SP3()
+{
+    delay(duration * 8 * timebase);
     p++;
-    c=*p;
-    state=Start;
+    c = *p;
+    state = Start;
 }
 
-void StateMachine::SError() {
-    p++;
-    c=*p;
-    if (c=='0'){
-        state=Stop;
-    }
-    else
-    std::cerr << "Format error in tune.";
+void StateMachine::SError()
+{
+    exit(1);
 }
 
+// Mester Jakob
+const char jakob[] = "t10,f4,g4,a4,f4,f4,g4,a4,f4,a4,h-4,c>8,a4,h-4,c>8,"
+                     "c>2,d>2,c>2,h-2,a4,f4,c>2,d>2,c>2,h-2,a4,f4,f4,c4,f8,f4,c4,f8,";
 
-
-    /* Next comes the functions for each state.
-    Each function should do the following:
-    1. Interpret the character c, and do any necessary calculations
-    2. Read the next character and advance the pointer p
-    3. Set the next state, depending on the new character
-    */
-    // Her er flere melodier :
-
-    // Mester Jakob
-    const char jakob[] = "t10,f4,g4,a4,f4,f4,g4,a4,f4,a4,h-4,c>8,a4,h-4,c>8,"
-                         "c>2,d>2,c>2,h-2,a4,f4,c>2,d>2,c>2,h-2,a4,f4,f4,c4,f8,f4,c4,f8,";
-
-//  Pippi Langstrømpe
-const char pippi[] = "t20,c2,f1,f1,a2,f2,g4,h-1,a1,g1,f1,e2,g1,e1,c2,e2,f4,a4,"
-                     "c2,f2,a2,f2,g4,h-1,a1,g1,f1,e2,g1,e1,c2,e2,f6,p2,c2,f2,a2,f2,g4,h-1,a1,g1,f1,"
-                     "e2,g1,e1,c2,e2,f4,a4,c2,f2,a2,f2,g4,h-1,a1,g1,f1,e2,g1,e1,c2,e2,f6,p2,a2,a1,"
-                     "a1,a2,a2,h-3,h-3,h-1,a1,g2,g1,g1,g2,g1,f1,e2,f2,g2,p2,a2,a1,a1,a2,a2,h-4,h-2,"
-                     "h-1,a1,g2,g2,f2,e2,f8,";
-// Åh abe
-const char abe[] = "t10,g2,c>4,g4,h4,f4,g4,e4,p4,f4,g4,c>4,h4,a4,"
-                   "g8,p3,e1,f3,f#1,g3,a1,g3,e1,f3,g1,f3,d1,e4,c>4,h4,a4,g4,h3,a1,g4,h3,a1,"
-                   "g3,f1,e3,d1,c4,p4,f8,d4,c4,f8,d4,c4,f8,d4,c4,f4,f4,f4,p4,g8,e4,d4,"
-                   "g8,e4,d4,g4,h4,a4,e4,g4,g4,g4,p2,";
-// Olsen Banden
 const char olsen[] = "t8,d4,e-4,d2,e-4,f10,p8,d4,e-4,f2,g4,a-10,p8,g4,a-4,g4,"
                      "a-2,h-4,h-4,h-2,a4,g4,f4,f4,f-4,e-4,d4,f2,f4,g2,f4,e-16,p4,e-2,e-4,f2,e-4,"
                      "d16,p4,f2,f4,g2,f4,e-16,p4,e-2,e-4,f2,e-4,d32,c>4,c#>4,d>4,e>4,f>4,c>4,p8,"
@@ -311,6 +307,7 @@ const char olsen[] = "t8,d4,e-4,d2,e-4,f10,p8,d4,e-4,f2,g4,a-10,p8,g4,a-4,g4,"
                      "d4,e-4,d2,e-4,f10,p8,d4,e-4,f2,g4,a-10,p8,g4,a-4,g4,a-2,h-4,h-4,h-2,a4,g4,f4,"
                      "f4,f-4,e-4,d4,f2,f4,g2,f4,e-16,p4,e-2,e-4,f2,e-4,d16,p4,f2,f4,g2,f4,e-16,p4,"
                      "f2,f4,g2,a4,h-4,p4,h-<4,p4,";
+
 // Marseillaisen
 const char marseille[] = "t20,d1,d3,d1,g4,g4,a4,a4,d>6,h2,g2,p1,g1,h3,g1,"
                          "e4,c>8,a3,f#1,g8,p3,g1,g3,a1,h4,h4,h4,c>3,h1,h4,a4,p4,a3,h1,c>4,c>4,c>4,d>3,"
@@ -323,11 +320,19 @@ const char silence[] = "t30,p2,d1,d1,f1,f1,a1,a1,g8,p1,c1,c1,c1,e1,e1,g1,g1,"
                        "f8,p1,f1,f1,f1,a1,a1,c>1,c>1,d>4,c>4,p2,f1,f1,a1,a1,c>1,c>1,d>4,c>4,p2,f1,f1,"
                        "d>1,d>5,d>1,e>1,f>1,f>3,e>1,d>3,c>6,d>1,c>1,a8,p1,f1,f1,f1,c>6,p1,e1,f1,d7,";
 
-const char test[] = "t30,p21,d11,";
+#define BUZZER 2
+StateMachine myMusicBox;
 
-int main()
+void setup()
 {
-    StateMachine musicBox;
-    musicBox.play(olsen);
+    pinMode(BUZZER, OUTPUT);
+    myMusicBox.speeker = BUZZER;
+}
 
+void loop()
+{
+    myMusicBox.play(marseille);
+    myMusicBox.play(silence);
+    myMusicBox.play(olsen);
+    myMusicBox.play(jakob);
 }
