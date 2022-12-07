@@ -1,0 +1,6 @@
+#ifndef NUM_INT_H
+#define NUM_INT_H
+
+double num_int1(double (*f)(double), double lim1, double lim2, double delta); 
+
+#endif 

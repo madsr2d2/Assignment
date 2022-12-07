@@ -34,11 +34,11 @@ int main()
 }
 
 char* randomSentenceGenerator() {
-	//char* sentence = calloc((sentenceLength*maxWordLength + sentenceLength), sizeof(char)); // Allocate memory
-	char *sentence = malloc(sentenceLength * maxWordLength * sizeof(char) + sentenceLength);
-		// Construct sentence
-	strcat(sentence, article[rand() % countOf(article)]); // Add article
-	strcat(sentence, " ");
+	char* sentence = calloc((sentenceLength*maxWordLength + sentenceLength), sizeof(char)); // Allocate memory
+
+  	// Construct sentence
+  	strcat(sentence, article[rand()%countOf(article)]); // Add article
+  	strcat(sentence, " ");
 
   	strcat(sentence, noun[rand()%countOf(noun)]); // Add noun
   	strcat(sentence, " ");
