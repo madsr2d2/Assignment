@@ -53,7 +53,7 @@ int main() {
 		while(getchar() != '\n'){};
 		puts("");
 		switch (controlVar) {
-			case 1: 
+			case 1:
 				printDataBase(dataBase, dataBaseSize);	// Add person to csv file if controlVar = 1
 				break;	
 			case 2:										// Add person to data base if controlVar = 2
@@ -178,9 +178,10 @@ void printPerson(Person *person) {
 
 void printDataBase(Person *dataBase[], size_t dataBaseSize) {
 	for (size_t i = 0; i < dataBaseSize; i++) {
-		printf("Entry %lu:\n", i+1);
+		printf("\nEntry %lu:\n", i+1);
+		puts("*******");
 		printPerson(dataBase[i]);
-		puts("\n");
+		puts("\n*******");
 	}
 }
 
