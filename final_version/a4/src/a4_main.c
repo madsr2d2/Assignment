@@ -32,7 +32,6 @@ int main(void) {
         {
             puts("\nExercise_4b:");
             puts("(Estimate Sin(x) using a Taylor series)");
-            //double my_float;
 
             do 
             {
@@ -43,6 +42,7 @@ int main(void) {
                 puts("1: Try again");
                 puts("2: Exit to Main Menu");
             } while (get_float_from_user("Please choose option: ",1,2,false) != 2);
+            
             puts("");
             continue;
         }

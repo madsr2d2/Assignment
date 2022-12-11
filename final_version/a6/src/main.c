@@ -47,10 +47,8 @@ int main()
 	// Check if user wants to try again.
 	control_var = (int) get_double("\n1: Try again.\n2: Exit program.\nPlease choose option: ",1,2);
 	
-	// Clear stdin.
-	char dummy;
-    while ((dummy = getchar()) != '\n');
-	}
+	// Flush stdin.
+    while (getchar() != '\n'){}
 	
 	// Close Program.
 	puts("");

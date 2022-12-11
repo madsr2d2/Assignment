@@ -1,8 +1,6 @@
 #include "get_sinx.h"
 #include <math.h>
 
-
-
 double get_sinx(double x) {
     // Handel x < 0.
     if (x<0) {
